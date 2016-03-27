@@ -87,22 +87,22 @@ endif()
 # Google Test libraries.  We build them using more strict warnings than what
 # are used for other targets, to ensure that gtest can be compiled by a user
 # aggressive about warnings.
-cxx_library(gtest "${cxx_strict}" src/gtest-all.cc)
-cxx_library(gtest_main "${cxx_strict}" src/gtest_main.cc)
-target_link_libraries(gtest_main gtest)
+cxx_library(basic_gtest "${cxx_strict}" src/gtest-all.cc)
+cxx_library(basic_gtest_main "${cxx_strict}" src/gtest_main.cc)
+target_link_libraries(basic_gtest_main basic_gtest)
 
 # If the CMake version supports it, attach header directory information
 # to the targets for when we are part of a parent build (ie being pulled
 # in via add_subdirectory() rather than being a standalone build).
 if (DEFINED CMAKE_VERSION AND NOT "${CMAKE_VERSION}" VERSION_LESS "2.8.11")
-  target_include_directories(gtest      INTERFACE "${gtest_SOURCE_DIR}/include")
-  target_include_directories(gtest_main INTERFACE "${gtest_SOURCE_DIR}/include")
+  target_include_directories(basic_gtest      INTERFACE "${gtest_SOURCE_DIR}/include")
+  target_include_directories(basic_gtest_main INTERFACE "${gtest_SOURCE_DIR}/include")
 endif()
 
 ########################################################################
 #
 # Install rules
-install(TARGETS gtest gtest_main
+install(TARGETS basic_gtest basic_gtest_main
   DESTINATION lib)
 install(DIRECTORY ${gtest_SOURCE_DIR}/include/gtest
   DESTINATION include)
